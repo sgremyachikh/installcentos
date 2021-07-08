@@ -1,4 +1,4 @@
-**Note:** Update: November 2019 - I no longer work at Red Hat on the OpenShift team.  Given that, I will not be updating this repo to work with OpenShift 4.x on baremetal.  My future work will be centered on a more pure upstream kubernetes experience.  If a community member wants to add support for 4.x, I will gladly accept a PR.
+# OKD 3.11 install on your own Centos 7 server
 
 Install RedHat OKD 3.11 on your own server.  For a local only install, it is suggested that you use CDK or MiniShift instead of this repo.  This install method is targeted for a single node cluster that has a long life.
 
@@ -13,28 +13,25 @@ https://github.com/mpeterson/rdo-openshift-tools
 
 **Please do use a clean CentOS system, the script installs all necesary tools and packages including Ansible, container runtime, etc.**
 
-> **Warning about Let's Encrypt setup available on this project:**
-> Let's Encrypt only works if the IP is using publicly accessible IP and custom certificates."
-> This feature doesn't work with OpenShift CLI for now.
-
 ## Installation
 
 1. Create a VM as explained in https://www.youtube.com/watch?v=ZkFIozGY0IA (this video) by Grant Shipley
 
 2. Clone this repo
 
-```
+```bash
 git clone https://github.com/okd-community-install/installcentos.git
 ```
 
 3. Execute the installation script
 
-```
+```bash
 cd installcentos
 ./install-openshift.sh
 ```
 
 ## Automation
+
 1. Define mandatory variables for the installation process
 
 ```
@@ -62,27 +59,4 @@ $ export DISK="/dev/sda"
 curl https://raw.githubusercontent.com/okd-community-install/installcentos/master/install-openshift.sh | INTERACTIVE=false /bin/bash
 ```
 
-## Development
-
-For development it's possible to switch the script repo
-
-```
-# Change location of source repository
-$ export SCRIPT_REPO="https://raw.githubusercontent.com/okd-community-install/installcentos/master"
-$ curl $SCRIPT_REPO/install-openshift.sh | /bin/bash
-```
-
-## Testing
-
-The script is tested using the tooling in the `validate` directory.
-
-To use the tooling, it's required to create file `validate/env.sh` with the DigitalOcean API key
-
-```
-export DIGITALOCEAN_TOKEN=""
-```
-
-and then run `start.sh` to start the provisioning. Once the ssh is connected to the server, the
-script will atatch to the `tmux` session running Ansible installer.
-
-To destroy the infrastructure, run the `stop.sh` script.
+4. To destroy the infrastructure, run the `stop.sh` script.
